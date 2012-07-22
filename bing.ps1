@@ -1,9 +1,22 @@
-function Invoke-BingQuery ($query) {
+#requires -version 3
 
-    $BingUrl = "https://api.datamarket.azure.com/Bing/Search/Web?Query='$($query)'&`$format=JSON"
+function Invoke-BingQuery  {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Query,
+        [Switch]$Raw
+    )
+
+    $BingUrl = "https://api.datamarket.azure.com/Bing/Search/Web?Query='$($Query)'&`$format=JSON"
 
     $bytes  = [System.Text.Encoding]::UTF8.GetBytes("$($Env:BingAPIKey):$($Env:BingAPIKey)")
-    $s = "Basic {0}" -f [System.Convert]::ToBase64String($bytes).ToString()
+    $s = "Basic {0}" -f [System.Convert]::ToBase64String($bytes)
 
-    (Invoke-RestMethod -Uri $BingUrl -Headers @{Authorization=$s}).d.results
+    $result = (Invoke-RestMethod -Uri $BingUrl -Headers @{Authorization=$s})
+    
+    if($Raw) {
+        return $result
+    }
+
+    $result.d.results
 }
