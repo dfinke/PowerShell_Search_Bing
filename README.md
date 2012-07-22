@@ -1,5 +1,5 @@
-PowerShell function to interact with the new Bing Web Search API on Azure
-==========================================================
+PowerShell and the new Bing Web Search API on Azure
+===================================================
 
 You need a Bing Search account key.
 https://datamarket.azure.com/
