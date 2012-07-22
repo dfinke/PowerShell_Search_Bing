@@ -15,7 +15,7 @@ $env:BingAPIKey= '0n1HWs....8nxzQcW0g='
 
 
 Extract titles from a query
--------------------------------
+---------------------------
 
 ```PowerShell
 (Invoke-BingQuery PowerShell).Title
@@ -45,3 +45,14 @@ Extract titles from a query
     PowerShell.nu | Windows PowerShell
     Manning: Windows PowerShell in Action - Manning Publications Co.
     PowerShell Tips and Tricks - Computerworld
+
+Get the Raw data
+----------------
+Work with the actual returned JSON that has been converted to PowerShell objects.
+
+```PowerShell
+Invoke-BingQuery Powershell -Raw
+```
+    d
+    -
+    @{results=System.Object[]; __next=https://api.datamarket.azure.com/Data.ashx/Bing/Search/Web?Query='Powershell'&$ski...
