@@ -1,7 +1,7 @@
 PowerShell function to interact with the new Bing Web Search API on Azure
 ==========================================================
 
-You need a Bing Searcy account key.
+You need a Bing Search account key.
 https://datamarket.azure.com/
 
 Account keys 
@@ -14,14 +14,14 @@ I set the following in my PowerShell environment:
 $env:BingAPIKey= '0n1HWs....8nxzQcW0g='
 
 
-Here's how you can extract the titles from a query.
----------------------------------------------------
+Extract titles from a query
+-------------------------------
 
 ```PowerShell
 (Invoke-BingQuery PowerShell).Title
 ```
     Windows PowerShell - Wikipedia, the free encyclopedia
-    Powershell.com – Powershell Scripts, Tips and Resources
+    Powershell.com - Powershell Scripts, Tips and Resources
     Windows Management Framework (Windows PowerShell 2.0, WinRM 2.0 ...
     Windows PowerShell - Microsoft Corporation: Software, Smartphones ...
     Getting Started with Windows PowerShell - Microsoft Corporation ...
