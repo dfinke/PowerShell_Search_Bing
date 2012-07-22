@@ -1,6 +1,8 @@
 PowerShell and the new Bing Web Search API on Azure
 ===================================================
 
+Thanks to Mark Watson posting his Java/Clojure version. https://github.com/mark-watson/bing_search_java
+
 You need a Bing Search account key.
 https://datamarket.azure.com/
 
