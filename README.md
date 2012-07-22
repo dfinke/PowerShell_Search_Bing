@@ -19,7 +19,7 @@ Here's how you can extract the titles from a query.
 
 ```PowerShell
 (Invoke-BingQuery PowerShell).Title
-
+```
     Windows PowerShell - Wikipedia, the free encyclopedia
     Powershell.com – Powershell Scripts, Tips and Resources
     Windows Management Framework (Windows PowerShell 2.0, WinRM 2.0 ...
