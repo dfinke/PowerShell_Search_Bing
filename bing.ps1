@@ -1,22 +1,57 @@
-#requires -version 3
-
-function Invoke-BingQuery  {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Query,
-        [Switch]$Raw
+#requires -Version 3 
+function Invoke-BingQuery
+{
+    Param(
+        [Parameter(Mandatory = $true)]
+        $Query,
+        [Parameter(Mandatory = $true)]
+        $APIAuthorizationKey,
+        [Parameter()]
+        [Switch]$RawData
+        
     )
-
-    $BingUrl = "https://api.datamarket.azure.com/Bing/Search/Web?Query='$($Query)'&`$format=JSON"
-
-    $bytes  = [System.Text.Encoding]::UTF8.GetBytes("$($Env:BingAPIKey):$($Env:BingAPIKey)")
-    $s = "Basic {0}" -f [System.Convert]::ToBase64String($bytes)
-
-    $result = (Invoke-RestMethod -Uri $BingUrl -Headers @{Authorization=$s})
+    begin
+    {
+        
+        $bytes  = [System.Text.Encoding]::UTF8.GetBytes("$APIAuthorizationKey`:$APIAuthorizationKey")
+        $Authorization = 'Basic {0}' -f [System.Convert]::ToBase64String($bytes)
     
-    if($Raw) {
-        return $result
     }
-
-    $result.d.results
+    process
+    {
+        foreach($BingQuery in $Query)
+        {
+            $BingUrl = "https://api.datamarket.azure.com/Bing/Search/Web?Query='$($BingQuery)'&`$format=JSON"
+            
+            Write-Verbose -Message "Query URL is $BingUrl"
+            
+            Write-Verbose -Message 'Will perform the query now...'
+            
+            $results = (Invoke-RestMethod -Uri $BingUrl -Headers @{
+                    Authorization = $Authorization
+            })
+            
+            Write-Verbose -Message 'Processing results'
+            If(-not ($RawData))
+            {
+                Write-Verbose -Message 'Displaying results as objects'
+                foreach($result in $($results.d.results))
+                {
+                    [PSCustomObject][Ordered]@{
+                        Title       = $result.title
+                        Description = $result.description
+                        URI         = $result.URL
+                    }
+                }
+            }
+            else
+            {
+                Write-Verbose -Message 'Displaying results as Raw Data'
+                Write-Output -InputObject $results
+            }
+        }             
+    }
+    end
+    {
+    }
 }
